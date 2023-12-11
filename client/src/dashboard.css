@@ -1,0 +1,15 @@
+/* Dashboard.module.css */
+
+#sidebar {
+    height: 100vh;
+    background-color: #343a40;
+    color: #fff;
+}
+
+#content {
+    padding: 20px;
+}
+
+.collapsed #sidebar {
+    width: 50px; /* Set your desired collapsed width */
+}
