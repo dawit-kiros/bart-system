@@ -9,6 +9,4 @@ function generateRandomString(length) {
 const secret = generateRandomString(32)
 
 
-// const secret = "bezkoder-secret-key"
-
 export default secret

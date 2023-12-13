@@ -1,5 +1,5 @@
 import authJwt  from "../middlewares/authJWT.js";
-import {allAccess,userBoard, moderatorBoard, adminBoard, findAllUsers } from "../controllers/user.controller.js";
+import {allAccess,userBoard, moderatorBoard, adminBoard, findAllUsers, deleteUser } from "../controllers/user.controller.js";
 
 export default function (app) {
   app.use((req, res, next) => {
@@ -27,5 +27,7 @@ export default function (app) {
   );
 
   app.get ('/api/users/all', findAllUsers)
+
+  app.delete('/api/users/:userId', deleteUser)
 }
 

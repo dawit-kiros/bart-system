@@ -21,6 +21,7 @@ import {
   
 } from "./components/index";
 import {logo} from "./Assets/index.js";
+import RealtimeInformation from "./components/RealtimeInformation";
 
 const App = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
@@ -143,7 +144,7 @@ const App = () => {
 
 
           
-         
+          <Route path="/realtime-info" element={<RealtimeInformation />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/role-management" element={<User />} />        
           
