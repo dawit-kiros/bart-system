@@ -11,6 +11,8 @@ import db from './models/index.js';
 import dbConfig from './config/db.js'
 import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/user.routes.js';
+import stationRoutes from './routes/station.routes.js';
+import routeRoutes from './routes/route.routes.js';
 
 
 
@@ -20,7 +22,7 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Midterm Project(Fedex Track API)',
+      title: 'Final Project(Bart System)',
       version: '1.0.0',
     },
   },
@@ -46,11 +48,11 @@ const server = https.createServer(httpsOptions,app);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// var corsOptions = {
-//   origin: "http://localhost:8081"
-// }
+var corsOptions = {
+  origin: "http://localhost:8082"
+}
 
-app.use(cors())
+app.use(cors(corsOptions) )
 
 //parse requests of content-type - application/json
 app.use(express.json());
@@ -78,38 +80,7 @@ db.mongoose
     process.exit();
   });
 
-  // function initial(){ 
-  //   Role.estimatedDocumentCount((err, count) =>{
-  //     if (!err && count === 0){
-  //       new Role({
-  //         name: 'user'
-  //       }).save(err => {
-  //         if (err){
-  //           logger.error("error", err)
-  //         }
-  //         logger.info('added \'user\' to roles collection')
-  //       });
-
-  //       new Role({
-  //         name:'moderator'
-  //       }).save(err => {
-  //         if (err) {
-  //           logger.error('error', err);
-  //         }
-  //         logger.info('added \'moderator\' to roles collection')
-  //       });
-
-  //       new Role({
-  //         name:'admin'
-  //       }).save(err => {
-  //         if (err) {
-  //           logger.error('error', err);
-  //         }
-  //         logger.info('added \'admin\' to roles collection')
-  //       });
-  //     }
-  //   })
-  // }
+  
   async function initial() {
     try {
       const count = await Role.estimatedDocumentCount();
@@ -117,7 +88,7 @@ db.mongoose
       if (count === 0) {
         await Promise.all([
           new Role({ name: "user" }).save(),
-          new Role({ name: "moderator" }).save(),
+         
           new Role({ name: "admin" }).save(),
         ]);
   
@@ -130,6 +101,8 @@ db.mongoose
   
 authRoutes(app);
 userRoutes(app);
+stationRoutes(app);
+routeRoutes(app)
 
 server.listen(port, () => {    
     logger.info(`Server listening on port ${port}`)

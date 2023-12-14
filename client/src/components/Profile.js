@@ -29,7 +29,7 @@ const Profile = () => {
         <div className="flex-1 sm:relative">
           <MenuToggle showMenu={showMenu} handleMenuToggle={handleMenuToggle} />
           <div className="h-16 bg-white shadow-md">
-            <Navbar pagename={"Dashboard"} />
+            <Navbar pagename={"Profile"} />
           </div>
           <div className="flex-col pl-4">
             <header className="pt-10">

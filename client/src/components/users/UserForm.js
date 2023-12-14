@@ -3,10 +3,11 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import AuthService from "../../services/auth.service";
 
-function UserForm() {
+function UserForm(props) {
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
 
+  
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -49,14 +50,31 @@ function UserForm() {
           <div className="bg-grey-lighter flex flex-col">
             <div className="container max-w-md mx-auto flex-1 flex flex-col items-center justify-center px-2">
               <div className="bg-white px-8 py-4 rounded shadow-md text-black w-full">
+              <div className="flex px-3 ">
+              <label className=" px-3"
+              hidden = {props.userData.id !== '' ? false : true}> Id:  </label> <input
+                  type="text"
+                  id="_id"
+                  name="_id"
+                  
+                  value= {props.userData.id !== '' ? props.userData.id : formik.values.id}
+                  disabled= {true}
+                  hidden = {props.userData.id !== '' ? false : true}
+                  className="block border border-grey-light py-1 px-3 w-full p-3 rounded mb-4 text-zinc-400"
+                  
+                  
+                />
+               
+              </div>
                 
+
                 <input
                   type="text"
                   id="username"
                   name="username"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.values.username}
+                  value= {props.userData.username !== '' ? props.userData.username : formik.values.username}
                   placeholder="username"
                   className={`form-control ${
                     formik.touched.username && formik.errors.username
@@ -76,7 +94,7 @@ function UserForm() {
                   name="email"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.values.email}
+                  value={props.userData.email !== '' ? props.userData.email : formik.values.email}
                   placeholder="email"
                   className={`form-control ${
                     formik.touched.email && formik.errors.email
@@ -95,6 +113,7 @@ function UserForm() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.password}
+                  hidden= {!props.userData.showPasswordField}
                   placeholder="password"
                   className={`form-control ${
                     formik.touched.password && formik.errors.password
@@ -113,7 +132,7 @@ function UserForm() {
                   className="w-full text-center py-1 rounded bg-lime-500 text-white hover:bg-lime focus:outline-none my-1"
                   disabled={formik.isSubmitting}
                 >
-                  Add
+                  {props.userData.buttonText}
                 </button>
 
                 {formik.status && formik.status.error && (

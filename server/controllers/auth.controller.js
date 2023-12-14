@@ -54,6 +54,7 @@ export const signin = async (req, res) => {
     const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
 
     if (!passwordIsValid) {
+      console.log('pass invalid')
       return res.status(401).send({
         accessToken: null,
         message: "Invalid Password!"

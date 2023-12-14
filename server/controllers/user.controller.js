@@ -18,6 +18,23 @@ export const moderatorBoard = (req, res) => {
     res.status(200).send("Moderator Content.");
 };
 
+export const find = async (req, res) => {
+    const userId = req.params.userId;
+    console.log(userId)
+    try {
+     
+      const record = await User.findById(userId);
+  
+      if (record) {
+        res.json(record);
+      } else {
+        res.status(404).json({ message: 'Record not found' });
+      }
+    } catch (error) {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+
 export const findAllUsers = async (req, res) => {
     try{
         const users = await User.find()
@@ -32,7 +49,7 @@ export const findAllUsers = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
     const userId = req.params.userId;
-  
+    
     try {
      
       const deletedUser = await User.findByIdAndDelete(userId);
@@ -47,3 +64,28 @@ export const deleteUser = async (req, res) => {
       return res.status(500).json({ message: 'Internal server error' });
     }
   }
+
+  export const updateUser = async (req, res) => {
+    try {
+        console.log(req.params.userId)
+        console.log(req.body.email)
+        //console.log(updatedData.usename)
+        return
+      // Find and update the record by ID
+      const updatedRecord = await User.findOneAndUpdate(
+        { _id: id },
+        { $set: updatedData },
+        { new: true } // Return the modified document rather than the original
+      );
+  
+      if (updatedRecord) {
+        console.log('Record updated successfully:', updatedRecord);
+      } else {
+        console.log('Record not found.');
+      }
+    } catch (error) {
+      console.error('Error updating record:', error.message);
+    } finally {
+      
+    }
+  };

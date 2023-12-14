@@ -30,7 +30,8 @@ const Login = () => {
 
         console.log("Login successful");
       } catch (error) {
-        setStatus({ error: error.message });
+        console.log( error)
+        setStatus({ error: error.response.data.message });
       } finally {
         setSubmitting(false);
       }

@@ -6,7 +6,7 @@ const API_URL = "https://localhost:8080/api/test/";
 const API_USER_URL = "https://localhost:8080/api/users";
 
 const getPublicContent = () => {
-  return axios.get("https://localhost:8080/api/test/all");
+  return axios.get("https://localhost:8080/api/test/all")
 };
 
 const getUserBoard = () => {

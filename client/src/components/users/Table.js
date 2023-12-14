@@ -5,6 +5,7 @@ import { see, remove, change, search } from "../../Assets/index.js";
 // import Register from "../Register.js";
 import UserForm from "./UserForm.js";
 import UserService from "../../services/user.service";
+import { email, useDataProvider } from "react-admin";
 
 const UsersTable = () => {
   const [users, setUsers] = useState([]);
@@ -14,11 +15,9 @@ const UsersTable = () => {
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState("");
 
-  
-
   useEffect(() => {
     const fetchUsers = async () => {
-      const response = await axios.get("https://localhost:8080/api/users/all");
+      const response = await axios.get("https://localhost:8080/api/users");
 
       setUsers(response.data.data);
     };
@@ -44,6 +43,14 @@ const UsersTable = () => {
     }
   };
 
+  const [userData, setUserData] = useState({
+    id: "",
+    username: "",
+    email: "",
+    showPasswordField: true,
+    buttonText : ""
+  });
+
   return (
     <>
       <div className="flex justify-between items-center mx-4 my-8">
@@ -63,10 +70,17 @@ const UsersTable = () => {
         <div>
           <button
             onClick={() => {
-              setShowModal(true)
-              setTitle("Add New User")
-            }
-            }
+              setShowModal(true);
+              setTitle("Add New User");
+              setUserData({
+                ...userData,
+                id: '',
+                username: '',
+                email: '',
+                showPasswordField: true,
+                buttonText : "Add"
+              });
+            }}
             className="bg-lime-500 hover:bg-lime-700 text-white font-bold py-2 px-8 rounded-md"
           >
             Add New
@@ -88,7 +102,7 @@ const UsersTable = () => {
                       </button>
                     </div>
                     <div className="relative p-6 flex-auto">
-                      <UserForm />
+                      <UserForm userData={userData} />
                     </div>
                   </div>
                 </div>
@@ -129,10 +143,17 @@ const UsersTable = () => {
                     src={change}
                     alt="change"
                     onClick={() => {
-                      setShowModal(true)
-                      setTitle("Edit User")
-                    }
-                    }
+                      setUserData({
+                        ...userData,
+                        id: user._id,
+                        username: user.username,
+                        email: user.email,
+                        showPasswordField: false,
+                        buttonText : "Save"
+                      });
+                      setShowModal(true);
+                      setTitle("Edit User");
+                    }}
                   />
                   {/* <img src={see} alt="see" /> */}
                   <img

@@ -39,19 +39,24 @@ const register = (username, email, password) => {
 
 const login = (username, password) => {
    
-    return axios
-      .post(API_URL + "signin", {
-        username,
-        password,
-      })
-      .then((response) => {
-        if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-        }
-  
-        return response.data;
-      });
-  };
+  return axios
+  .post(API_URL + "signin", {
+    username,
+    password,
+  })
+  .then((response) => {
+    if (response.data.accessToken) {
+      localStorage.setItem("user", JSON.stringify(response.data));
+    }
+
+    return response.data;
+  })
+  .catch((error) => {
+    // Handle error
+    console.error('Error during sign-in:', error.response.data);
+    throw error; // Rethrow the error if needed
+  });
+}
 
 const logout = () => {
     localStorage.removeItem('user')
