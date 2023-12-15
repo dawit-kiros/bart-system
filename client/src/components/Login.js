@@ -25,7 +25,7 @@ const Login = () => {
         // If login is successful, you can navigate to another page or perform additional actions
 
         await AuthService.login(values.username, values.password);
-        navigate("/profile");
+        navigate("/dashboard");
         window.location.reload();
 
         console.log("Login successful");

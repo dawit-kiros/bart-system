@@ -11,17 +11,18 @@ import Register from "./components/Register";
 import Home from "./components/PageHome";
 import Profile from "./components/Profile";
 import BoardUser from "./components/PageBoardUser";
-import BoardModerator from "./components/PageBoardModerator";
+
 import BoardAdmin from "./components/PageBoardAdmin";
 import { demouser } from "./Assets/index";
 import {
   Dashboard,  
   User,
-  
+  Station
   
 } from "./components/index";
 import {logo} from "./Assets/index.js";
 import RealtimeInformation from "./components/RealtimeInformation";
+
 
 const App = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
@@ -139,11 +140,10 @@ const App = () => {
           <Route path="/register" element={<Register/>} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/user" element={<BoardUser/>} />
-          <Route path="/mod" element={<BoardModerator/>} />
+          {/* <Route path="/mod" element={<BoardModerator/>} /> */}
           <Route path="/admin" element={<BoardAdmin/>} />
 
-
-          
+          <Route path="/stations" element={<Station/>} />          
           <Route path="/realtime-info" element={<RealtimeInformation />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/role-management" element={<User />} />        

@@ -3,7 +3,7 @@ import {
   find,
   findAll,
   deleteRoute,
-
+  getTotalCount
 } from "../controllers/route.controller.js";
 
 export default function (app) {
@@ -18,6 +18,8 @@ export default function (app) {
   app.get("/api/routes", findAll);
 
   app.get('/api/routes/:routeId', find)
+
+  app.get ('/api/routes/routes/count', getTotalCount)
 
   app.get("/api/routes/test", (req, res) => {
     res.send("Routes API Test Works");

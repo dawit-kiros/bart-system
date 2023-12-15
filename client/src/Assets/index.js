@@ -2,7 +2,6 @@ import logo from "./logo.png";
 import reedem from "./Reedem.png";
 import revenue from "./Revenue.png";
 import service from "./Service.png";
-import users from "./Users.png";
 import background from "./background.png";
 import show from "./show.png";
 import hide from "./hide.png";
@@ -21,13 +20,14 @@ import see from "./see.png";
 import change from "./change.png";
 import remove from "./remove.png";
 import search from "./search.png";
-
+import routes from "./routes.png"
+import stations from "./train.png"
+import users from "./users.png"
 export {
   logo,
   reedem,
   revenue,
-  service,
-  users,
+  service,  
   background,
   hide,
   show,
@@ -46,4 +46,7 @@ export {
   change,
   see,
   search,
+  users,
+  stations, 
+  routes
 };

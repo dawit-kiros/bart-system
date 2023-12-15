@@ -31,16 +31,30 @@ const deleteUser = async (id) => {
     console.log(response.data); // Log the server response
   } catch (error) {
     console.error("Error deleting user:", error);
-    // Handle the error (e.g., show an error message)
+   
   }
 };
 
+const getUsersCount = async () => {
+ 
+  try {
+    const response = await axios.get(
+      `${API_USER_URL}/users/count`
+    );
+     
+    return response.data.totalCount; // Log the server response
+  } catch (error) {
+    console.error("Error getting user count:", error);
+    
+  }
+};
 const UserService = {
   getPublicContent,
   getUserBoard,
   getModeratorBoard,
   getAdminBoard,
   deleteUser,
+  getUsersCount
 };
 
 export default UserService;

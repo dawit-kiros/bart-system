@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { see, remove, change, search } from "../../Assets/index.js";
-// import ModalForm  from "./UserForm.js";
-// import Register from "../Register.js";
-import UserForm from "./UserForm.js";
-import UserService from "../../services/user.service";
+import StationForm from "./StationForm.js";
+import StationService from "../../services/station.service";
 
 
-const UsersTable = () => {
-  const [users, setUsers] = useState([]);
+const StationsTable = () => {
+  const [stations, setStations] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [status, setStatus] = useState({});
 
@@ -16,38 +14,44 @@ const UsersTable = () => {
   const [title, setTitle] = useState("");
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      const response = await axios.get("https://localhost:8080/api/users");
+    const fetchStations = async () => {
+      const response = await axios.get("https://localhost:8080/api/stations");
 
-      setUsers(response.data.data);
+      setStations(response.data.data);
     };
-    fetchUsers();
+    fetchStations();
   }, []);
 
   const handleSearch = (event) => {
     setSearchText(event.target.value);
   };
 
-  const filteredUsers = users.filter((user) =>
-    user.username.toLowerCase().includes(searchText.toLowerCase())
+  const filteredStations = stations.filter((station) =>
+    station.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
   const handleDelete = (id) => {
-    // alert(id)
+    
     try {
-      const response = UserService.deleteUser(id);
-      setUsers(users.filter((user) => user._id !== id));
+      const response = StationService.deleteStation(id);
+      setStations(stations.filter((station) => station._id !== id));
       console.log(response.data);
     } catch (error) {
-      console.error("Error deleting user:", error);
+      console.error("Error deleting station:", error);
     }
   };
 
-  const [userData, setUserData] = useState({
+  const [stationData, setStationData] = useState({
     id: "",
-    username: "",
-    email: "",
-    showPasswordField: true,
+    name	:	"",
+    abbr	:	"",
+    latitude	:	"",
+    longitude	:	"",
+    address	:	"",
+    city	:	"",
+    county	:	"",
+    state	:	"",
+    zipcode	:	"",
     buttonText : ""
   });
 
@@ -71,13 +75,19 @@ const UsersTable = () => {
           <button
             onClick={() => {
               setShowModal(true);
-              setTitle("Add New User");
-              setUserData({
-                ...userData,
+              setTitle("Add New Station");
+              setStationData({
+                ...stationData,
                 id: '',
-                username: '',
-                email: '',
-                showPasswordField: true,
+                name	:	'',
+                abbr	:	'',
+                latitude	:'',
+                longitude	:	'',
+                address	:	'',
+                city	:	'',
+                county	:'',
+                state	:	'',
+                zipcode	:	'',
                 buttonText : "Add"
               });
             }}
@@ -102,7 +112,7 @@ const UsersTable = () => {
                       </button>
                     </div>
                     <div className="relative p-6 flex-auto">
-                      <UserForm userData={userData} />
+                      <StationForm stationData={stationData} />
                     </div>
                   </div>
                 </div>
@@ -115,27 +125,34 @@ const UsersTable = () => {
       <table className="table-auto w-full">
         <thead>
           <tr className=" bg-gradient-to-r from-purple-600 to-blue-500  transition duration-300 text-white text-left ">
-            <th className="px-4 py-2">S.No</th>
-            <th className="px-4 py-2">Username</th>
-            <th className="px-4 py-2">Email Address</th>
-            <th className="px-4 py-2">Role</th>
+            <th className="px-0 py-2">S.No</th>
+            <th className="px-4 py-2">Name</th>
+            <th className="px-4 py-2">Abbr</th>
+            <th className="px-4 py-2">Latitude</th>
+            <th className="px-4 py-2">Longitude</th>
+            <th className="px-4 py-2">Address</th>
+            <th className="px-4 py-2">City</th>
+            <th className="px-4 py-2">County</th>
+            <th className="px-4 py-2">State</th>
+            <th className="px-4 py-2">Zipcode</th>
             <th className="px-4 py-2">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {filteredUsers.map((user, index) => (
-            <tr key={user._id}>
-              <td className="shadow-sm px-4 py-0 ">{index + 1}</td>
-              <td className="shadow-sm px-4 py-0">{user.username}</td>
-              <td className="shadow-sm px-4 py-0">{user.email}</td>
-              <td className="shadow-sm px-4 py-0">
-                <ul>
-                  {user.roles &&
-                    user.roles.map((role, index) => (
-                      <li key={index}>{role.name}</li>
-                    ))}
-                </ul>
-              </td>
+          {filteredStations.map((station, index) => (
+            <tr key={station._id}>
+              <td className="shadow-sm px-0 py-0 ">{index + 1}</td>
+              <td className="shadow-sm px-4 py-0">{station.name}</td>
+              <td className="shadow-sm px-4 py-0">{station.abbr}</td>
+              <td className="shadow-sm px-4 py-0">{station.latitude}</td>
+              <td className="shadow-sm px-4 py-0">{station.longitude}</td>
+             
+              <td className="shadow-sm px-4 py-0">{station.address}</td>
+              <td className="shadow-sm px-4 py-0">{station.city}</td>
+              <td className="shadow-sm px-4 py-0">{station.county}</td>
+              <td className="shadow-sm px-4 py-0">{station.state}</td>
+              <td className="shadow-sm px-4 py-0">{station.zipcode}</td>
+             
 
               <td className="shadow-sm px-4 py-0">
                 <div className="flex flex-row justify-between gap-4 cursor-pointer w-4 h-4 ">
@@ -143,23 +160,29 @@ const UsersTable = () => {
                     src={change}
                     alt="change"
                     onClick={() => {
-                      setUserData({
-                        ...userData,
-                        id: user._id,
-                        username: user.username,
-                        email: user.email,
-                        showPasswordField: false,
+                      setStationData({
+                        ...stationData,
+                        id: station._id,
+                        name	:	station.name,
+                        abbr	:	station.abbr,
+                        latitude	:station.latitude,
+                        longitude	:	station.longitude,
+                        address	:	station.address,
+                        city	:	station.city,
+                        county	:station.county,
+                        state	:	station.state,
+                        zipcode	:	station.zipcode,
                         buttonText : "Save"
                       });
                       setShowModal(true);
-                      setTitle("Edit User");
+                      setTitle("Edit Station");
                     }}
                   />
                   {/* <img src={see} alt="see" /> */}
                   <img
                     src={remove}
                     alt="remove"
-                    onClick={() => handleDelete(user._id)}
+                    onClick={() => handleDelete(station._id)}
                   />
                 </div>
               </td>
@@ -171,4 +194,4 @@ const UsersTable = () => {
   );
 };
 
-export default UsersTable;
+export default StationsTable;

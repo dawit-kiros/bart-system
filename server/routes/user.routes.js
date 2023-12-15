@@ -1,5 +1,5 @@
 import authJwt  from "../middlewares/authJWT.js";
-import {allAccess,userBoard, moderatorBoard, adminBoard, findAllUsers, deleteUser, updateUser, find } from "../controllers/user.controller.js";
+import {allAccess,userBoard, moderatorBoard, adminBoard, findAllUsers, deleteUser, updateUser, find, getTotalCount } from "../controllers/user.controller.js";
 
 export default function (app) {
   app.use((req, res, next) => {
@@ -30,8 +30,12 @@ export default function (app) {
 
   app.get('/api/users/:userId', find)
 
+  app.get ('/api/users/users/count', getTotalCount)
+
   app.patch('/api/users/:userId', updateUser)
 
   app.delete('/api/users/:userId', deleteUser)
+
+ 
 }
 

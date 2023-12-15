@@ -12,30 +12,7 @@ const register = (username, email, password) => {
     })
 }
 
-/********   
- * 
- * Check if the following line could be refactored to async/await
- */
 
-// const login = async (username, password) => {
-//     console.log(username + " "+ password)
-//     try {
-//         const response = await axios.post(apiUrl,  {
-//           username,
-//           password
-//       });
-      
-//         if (response.data.accessToken) {
-//           localStorage.setItem('user', JSON.stringify(response.data));
-//         }
-      
-//         return response.data;
-//       } catch (error) {
-//         // Handle the error if needed
-//         console.error('Error during login:', error);
-//         throw error; // Rethrow the error or handle it according to your needs
-//       }
-// }
 
 const login = (username, password) => {
    

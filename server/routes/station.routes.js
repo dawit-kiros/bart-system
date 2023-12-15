@@ -1,5 +1,5 @@
 
-import {addNew, find, findAll, deleteStation} from "../controllers/station.controller.js";
+import {addNew, find, findAll, deleteStation, getTotalCount} from "../controllers/station.controller.js";
 
 export default function(app) {
   app.use(function(req, res, next) {
@@ -15,6 +15,8 @@ export default function(app) {
   app.get ('/api/stations', findAll)
 
   app.get('/api/stations/:stationId', find)
+
+  app.get ('/api/stations/stations/count', getTotalCount)
 
 //   app.patch('/api/stations/:userId', updateStation)
 

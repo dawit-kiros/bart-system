@@ -1,16 +1,13 @@
 import React, { useState } from "react";
-import {
-  logo,
-  dashboard,
-  home,
-  user,
+import {  
+  dashboard, 
   showcase,
   settings,
-  role,
-  market,
-  content,
-  customer,
+ 
   logout,
+  stations, 
+  routes, 
+  users
 } from "../Assets/index";
 
 const Menubar = () => {
@@ -25,22 +22,22 @@ const Menubar = () => {
     {
       name: "Admin Panel",
       icon: settings,
-      link: "",
+      link: "/profile",
       subItems: [
         {
           name: "Manage Stations",
-          icon: settings,
-          link: "",
+          icon: stations,
+          link: "/stations",
         },
         {
-          name: "Manage Routes",
-          icon: settings,
-          link: "",
+          name: "Manage Train Routes",
+          icon: routes,
+          link: "/profile",
         },
         {
           name: "Manage Users",
-          icon: settings,
-          link: "",
+          icon: users,
+          link: "/role-management",
         },
       ],
     },   
@@ -48,14 +45,12 @@ const Menubar = () => {
       name: "Realtime Information",
       icon: showcase,
       link: "/realtime-info",
+    },   
+    { 
+      name: "Settings",
+       icon: settings,
+        link: "/user" 
     },
-
-    {
-      name: "User Management",
-      icon: role,
-      link: "/role-management",
-    },
-    { name: "Settings", icon: settings, link: "/user" },
   ];
 
   const handleItemClick = (item) => {
@@ -71,7 +66,7 @@ const Menubar = () => {
             <>
               <a
                 key={index}
-                href={item.link}
+                href={item.name !== "Admin Panel" ? item.link : "#"}
                 className={`px-4 py-3 flex items-center ${
                   selectedItem === item ? "text-lime-500" : "hover:text-gray"
                 }`}
@@ -82,23 +77,23 @@ const Menubar = () => {
               </a>
 
               {item.subItems &&
-                item.subItems.map((item, index) => (
+                item.subItems.map((subItem, index ) => (
                   <a
-                    key={index}
-                    href={`/${item.link}`}
+                    key={index + 5}
+                    href={subItem.link}
                     className={`px-5 py-3 flex items-center ${
-                      selectedItem === item.name
+                      selectedItem === subItem.name
                         ? "text-lime-500"
                         : "hover:text-gray"
                     }`}
-                    onClick={() => handleItemClick(item.name)}
+                    onClick={() => handleItemClick(subItem.name)}
                   >
                     <img
-                      src={item.icon}
-                      alt={item.name}
+                      src={subItem.icon}
+                      alt={subItem.name}
                       className="h-5 w-5 mr-2"
                     />
-                    <span className="px-1 py-0 ">{item.name}</span>
+                    <span className="px-1 py-0 ">{subItem.name} </span>
                   </a>
                 ))}
             </>
