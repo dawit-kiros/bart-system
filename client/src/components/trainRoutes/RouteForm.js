@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import StationService from "../../services/station.service";
+import RouteService from "../../services/route.service";
 
 function UserForm(props) {
   const [successful, setSuccessful] = useState(false);
@@ -9,41 +9,33 @@ function UserForm(props) {
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      abbr: "",
-      latitude: "",
-      longitude: "",
-      address: "",
-      city: "",
-      county: "",
-      state: "",
-      zipcode: "",
+      name	:	"",
+      abbr	:	"",
+      routeID	:	"",
+      number	:	"",
+      color	:	"",
+      direction	:	"",   
     },
     validationSchema: Yup.object({
       name: Yup.string().required("name is required"),
       abbr: Yup.string().required("abbr is required"),
-      latitude: Yup.string().required("latitude is required"),
-      longitude: Yup.string().required("longitude is required"),
-      address: Yup.string().required("address is required"),
-      city: Yup.string().required("city is required"),
-      county: Yup.string().required("county is required"),
-      state: Yup.string().required("state is required"),
-      zipcode: Yup.string().required("zipcode is required"),
+      routeID	:Yup.string().required("routeID is required"),
+      number	:	Yup.string().required("number is required"),
+      color	:	Yup.string().required("color is required"),
+      direction	:	Yup.string().required("direction is required"),
     }),
     onSubmit: async (values) => {
       setMessage("");
       setSuccessful(false);
       try {
-        const response = await StationService.register(
+        const response = await RouteService.register(
           values.name,
           values.abbr,          
-          values.latitude,
-          values.longitude,
-          values.address,
-          values.city,
-          values.county,
-          values.state,
-          values.zipcode,
+          values.routeID,
+          values.number,
+          values.color,
+          values.direction,
+          
         );
         setMessage(response.data.message);
         setSuccessful(true);
@@ -70,7 +62,7 @@ function UserForm(props) {
                 <div className="flex px-3 ">
                   <label
                     className=" px-3"
-                    hidden={props.stationData.id !== "" ? false : true}
+                    hidden={props.routeData.id !== "" ? false : true}
                   >
                     {" "}
                     Id:{" "}
@@ -80,12 +72,12 @@ function UserForm(props) {
                     id="_id"
                     name="_id"
                     value={
-                      props.stationData.id !== ""
-                        ? props.stationData.id
+                      props.routeData.id !== ""
+                        ? props.routeData.id
                         : formik.values.id
                     }
                     disabled={true}
-                    hidden={props.stationData.id !== "" ? false : true}
+                    hidden={props.routeData.id !== "" ? false : true}
                     className="block border border-grey-light py-1 px-3 w-full p-3 rounded mb-4 text-zinc-400"
                   />
                 </div>
@@ -97,8 +89,8 @@ function UserForm(props) {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={
-                    props.stationData.name !== ""
-                      ? props.stationData.name
+                    props.routeData.name !== ""
+                      ? props.routeData.name
                       : formik.values.name
                   }
                   placeholder="name"
@@ -121,8 +113,8 @@ function UserForm(props) {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={
-                    props.stationData.abbr !== ""
-                      ? props.stationData.abbr
+                    props.routeData.abbr !== ""
+                      ? props.routeData.abbr
                       : formik.values.abbr
                   }
                   placeholder="abbr"
@@ -138,157 +130,93 @@ function UserForm(props) {
 
 <input
                   type="text"
-                  id="latitude"
-                  name="latitude"
+                  id="routeID"
+                  name="routeID"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={
-                    props.stationData.latitude !== ""
-                      ? props.stationData.latitude
-                      : formik.values.latitude
+                    props.routeData.routeID !== ""
+                      ? props.routeData.routeID
+                      : formik.values.routeID
                   }
-                  placeholder="latitude"
+                  placeholder="routeID"
                   className={`form-control ${
-                    formik.touched.latitude && formik.errors.latitude
+                    formik.touched.routeID && formik.errors.routeID
                       ? "is-invalid"
                       : "block border border-grey-light py-1  w-full p-3 rounded mb-4"
                   }`}
                 />
-                {formik.touched.latitude && formik.errors.latitude && (
-                  <div className="invalid-feedback">{formik.errors.latitude}</div>
+                {formik.touched.routeID && formik.errors.routeID && (
+                  <div className="invalid-feedback">{formik.errors.routeID}</div>
                 )}
 
 <input
                   type="text"
-                  id="longitude"
-                  name="longitude"
+                  id="number"
+                  name="number"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={
-                    props.stationData.longitude !== ""
-                      ? props.stationData.longitude
-                      : formik.values.longitude
+                    props.routeData.number !== ""
+                      ? props.routeData.number
+                      : formik.values.number
                   }
-                  placeholder="longitude"
+                  placeholder="number"
                   className={`form-control ${
-                    formik.touched.longitude && formik.errors.longitude
+                    formik.touched.number && formik.errors.number
                       ? "is-invalid"
                       : "block border border-grey-light py-1  w-full p-3 rounded mb-4"
                   }`}
                 />
-                {formik.touched.longitude && formik.errors.longitude && (
-                  <div className="invalid-feedback">{formik.errors.longitude}</div>
+                {formik.touched.number && formik.errors.number && (
+                  <div className="invalid-feedback">{formik.errors.number}</div>
                 )}
-
-
-
-                <input
-                  type="text"
-                  id="address"
-                  name="address"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.address}
-                  
-                  placeholder="address"
-                  className={`form-control ${
-                    formik.touched.address && formik.errors.address
-                      ? "is-invalid"
-                      : "block border border-grey-light py-1  w-full p-3 rounded mb-4"
-                  }`}
-                />
-                {formik.touched.address && formik.errors.address && (
-                  <div className="invalid-feedback">
-                    {formik.errors.address}
-                  </div>
-                )}
-
-  <input
-                  type="text"
-                  id="city"
-                  name="city"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.city}
-                 
-                  placeholder="city"
-                  className={`form-control ${
-                    formik.touched.city && formik.errors.city
-                      ? "is-invalid"
-                      : "block border border-grey-light py-1  w-full p-3 rounded mb-4"
-                  }`}
-                />
-                {formik.touched.city && formik.errors.city && (
-                  <div className="invalid-feedback">
-                    {formik.errors.city}
-                  </div>
-                )}
-
 
 <input
                   type="text"
-                  id="county"
-                  name="county"
+                  id="color"
+                  name="color"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.values.county}
-                 
-                  placeholder="county"
+                  value={
+                    props.routeData.color !== ""
+                      ? props.routeData.color
+                      : formik.values.color
+                  }
+                  placeholder="color"
                   className={`form-control ${
-                    formik.touched.county && formik.errors.county
+                    formik.touched.color && formik.errors.color
                       ? "is-invalid"
                       : "block border border-grey-light py-1  w-full p-3 rounded mb-4"
                   }`}
                 />
-                {formik.touched.county && formik.errors.county && (
-                  <div className="invalid-feedback">
-                    {formik.errors.county}
-                  </div>
+                {formik.touched.color && formik.errors.color && (
+                  <div className="invalid-feedback">{formik.errors.color}</div>
                 )}
-
 
 <input
                   type="text"
-                  id="state"
-                  name="state"
+                  id="direction"
+                  name="direction"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.values.state}
-                  
-                  placeholder="state"
+                  value={
+                    props.routeData.direction !== ""
+                      ? props.routeData.direction
+                      : formik.values.direction
+                  }
+                  placeholder="direction"
                   className={`form-control ${
-                    formik.touched.state && formik.errors.state
+                    formik.touched.direction && formik.errors.direction
                       ? "is-invalid"
                       : "block border border-grey-light py-1  w-full p-3 rounded mb-4"
                   }`}
                 />
-                {formik.touched.state && formik.errors.state && (
-                  <div className="invalid-feedback">
-                    {formik.errors.state}
-                  </div>
+                {formik.touched.direction && formik.errors.direction && (
+                  <div className="invalid-feedback">{formik.errors.direction}</div>
                 )}
 
-
-<input
-                  type="text"
-                  id="zipcode"
-                  name="zipcode"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.zipcode}
-                  
-                  placeholder="zipcode"
-                  className={`form-control ${
-                    formik.touched.zipcode && formik.errors.zipcode
-                      ? "is-invalid"
-                      : "block border border-grey-light py-1  w-full p-3 rounded mb-4"
-                  }`}
-                />
-                {formik.touched.zipcode && formik.errors.zipcode && (
-                  <div className="invalid-feedback">
-                    {formik.errors.zipcode}
-                  </div>
-                )}
+                
 
 
                 <button
@@ -296,7 +224,7 @@ function UserForm(props) {
                   className="w-full text-center py-1 rounded bg-lime-500 text-white hover:bg-lime focus:outline-none my-1"
                   disabled={formik.isSubmitting}
                 >
-                  {props.stationData.buttonText}
+                  {props.routeData.buttonText}
                 </button>
 
                 {formik.status && formik.status.error && (

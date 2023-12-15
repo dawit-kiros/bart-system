@@ -17,7 +17,8 @@ import { demouser } from "./Assets/index";
 import {
   Dashboard,  
   User,
-  Station
+  Station,
+  TrainRoute
   
 } from "./components/index";
 import {logo} from "./Assets/index.js";
@@ -143,7 +144,8 @@ const App = () => {
           {/* <Route path="/mod" element={<BoardModerator/>} /> */}
           <Route path="/admin" element={<BoardAdmin/>} />
 
-          <Route path="/stations" element={<Station/>} />          
+          <Route path="/stations" element={<Station/>} />     
+          <Route path="/train-routes" element={<TrainRoute/>} />          
           <Route path="/realtime-info" element={<RealtimeInformation />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/role-management" element={<User />} />        

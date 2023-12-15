@@ -29,5 +29,5 @@ export default function (app) {
 
   //   app.patch('/api/routes/:userId', updateStation)
 
-  app.delete("/api/routes/:stationId", deleteRoute);
+  app.delete("/api/routes/:routeId", deleteRoute);
 }

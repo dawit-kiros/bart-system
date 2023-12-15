@@ -32,7 +32,7 @@ const Menubar = () => {
         {
           name: "Manage Train Routes",
           icon: routes,
-          link: "/profile",
+          link: "/train-routes",
         },
         {
           name: "Manage Users",

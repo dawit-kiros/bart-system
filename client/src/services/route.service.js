@@ -5,6 +5,23 @@ import axios from "axios";
 const API_ROUTE_URL = "https://localhost:8080/api/routes";
 
 
+const register = ( 
+  name,
+  abbr,          
+  routeID,
+  number,
+  color,
+  direction) => {
+  return axios.post(API_ROUTE_URL , {
+    name,
+    abbr,          
+    routeID,
+    number,
+    color,
+    direction
+  })
+}
+
 const deleteRoute = async (id) => {
  
   try {
@@ -33,6 +50,7 @@ const getRoutesCount = async () => {
   }
 };
 const RouteService = {  
+    register,
   deleteRoute,
   getRoutesCount
 };

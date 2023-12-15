@@ -4,7 +4,7 @@ const Route = db.route
 
 export const addNew = async (req, res) => {
     try {
-        
+        console.log(req.body.name)
       const route = new Route({        
         name: req.body.name,        
         abbr:req.body.abbr,
@@ -39,13 +39,13 @@ export const deleteRoute = async (req, res) => {
     
     try {
      
-      const deletedStation = await Route.findByIdAndDelete(routeId);
+      const deletedRoute = await Route.findByIdAndDelete(routeId);
   
-      if (!deletedStation) {
+      if (!deletedRoute) {
         return res.status(404).json({ message: 'Route not found' });
       }
   
-      return res.json({ message: 'Route deleted successfully', deletedStation });
+      return res.json({ message: 'Route deleted successfully', deletedRoute });
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: 'Internal server error' });
